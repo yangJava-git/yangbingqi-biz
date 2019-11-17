@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yangbingqi.dao.CompanyMapper">
+		
+		<select id="listCompany" resultType="map">
+				select c.*,t.name tname from biz_company c join biz_type t on c.type = t.tid 
+				<where>
+						<if test="type != null and type != 0">
+								and c.type = #{type}
+						</if>
+						<if test="capital == 1">
+								and c.capital >=1 and capital&lt;2000000
+						</if>
+						<if test="capital == 2">
+								and c.capital >=2100000 and capital&lt;10000000
+						</if>
+						<if test="capital == 3">
+								and c.capital >=10000000
+						</if>
+				</where>
+		</select>
+		
+		<insert id="addCom">
+				insert into biz_company() values(0,#{name},#{corporation},#{address},#{capital},#{regist_no},#{type},#{period},#{created})
+		</insert>
+		
+</mapper>
